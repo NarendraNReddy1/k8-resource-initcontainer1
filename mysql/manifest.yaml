@@ -24,6 +24,16 @@ spec:
       containers:
       - name: mysql
         image: narendranreddy/mysql:v1.0    
+        readinessProbe:
+          tcpSocket:
+            port: 3306
+          initialDelaySeconds: 10 # Intiial delay
+          periodSeconds: 5    #Every Periodc 5 secs
+        livenessProbe:
+          tcpSocket:
+            port: 3306             # PORT NUMBER 
+          initialDelaySeconds: 10
+          periodSeconds: 5 # PERIODIC        
 ---
 kind: Service
 apiVersion: v1
