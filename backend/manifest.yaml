@@ -42,7 +42,21 @@ spec:
             memory: "128Mi"
           limits:
             cpu: "150m"
-            memory: "256Mi"           
+            memory: "256Mi" 
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          failureThreshold: 2
+          periodSeconds: 5
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          failureThreshold: 2 # Reboot after 2 failures 
+          periodSeconds: 5     # 5 secs periodic check
+          initialDelaySeconds: 30   # Initial delay is 30 secs                       
         envFrom:
         - configMapRef:
             name: backend
